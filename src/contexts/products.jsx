@@ -53,7 +53,7 @@ export const getProducts = (dispatch) => {
     type: "GET_PRODUCTS_REQUEST"
   });
   const url =
-    "/products";
+    "https://react-shopping-cart-backend.herokuapp.com/products";
     // "https://res.cloudinary.com/sivadass/raw/upload/v1535817394/json/products.json";
   axios
     .get(url)
