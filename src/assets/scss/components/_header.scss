@@ -1,6 +1,6 @@
 header {
-  background: $white;
-  padding: 30px 32px;
+  background: $off-white;
+  padding: 0px 32px 0px 32px;
   box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.033);
   position: fixed;
   top: 0;
@@ -21,7 +21,7 @@ header {
     }
   }
   @media (max-width: 480px) {
-    padding: 8px 12px;
+    padding: 2px 12px 2px 12px;
   }
 }
 @keyframes slideUp {
@@ -36,12 +36,12 @@ header {
 }
 // Logo
 .brand .logo {
-  width: 45px;
+  width: 80px;
   // width: 123px;
   @media (max-width: 480px) {
-    width: 35px;
+    width: 52px;
     // width: 102px;
-    margin: 2px 0;
+    // margin: 2px 0;
   }
 }
 
@@ -62,6 +62,9 @@ header {
 .search-form {
   display: flex;
   display: -webkit-flex;
+  @media (min-width: 481px) {
+    margin-top: 20px;
+  }
   @media (max-width: 480px) {
     display: none;
     position: absolute;
@@ -78,7 +81,7 @@ header {
   }
   .search-keyword {
     height: 36px;
-    border: 1px solid $primary-green;
+    border: 1px solid $black;
     padding: 0 16px;
     border-radius: 2px 0 0 2px;
     width: 100%;
@@ -93,7 +96,7 @@ header {
   }
   .search-button {
     border-radius: 0 2px 2px 0;
-    background: $primary-green
+    background: $black
       url(https://res.cloudinary.com/sivadass/image/upload/v1494692031/icons/search.png)
       center no-repeat;
     width: 96px;
@@ -111,6 +114,7 @@ header {
 }
 @media (max-width: 480px) {
   .mobile-search {
+    margin-top: 10px;
     display: block;
     height: 36px;
     width: 36px;
@@ -131,6 +135,9 @@ header {
   @media (max-width: 991px) {
     margin-left: 16px;
   }
+  @media (min-width: 481px) {
+    margin-top: 20px;
+  }
 }
 .cart-info {
   @media (max-width: 991px) {
@@ -139,7 +146,7 @@ header {
 }
 .cart-info table {
   font-size: 14px;
-  color: $primary-green;
+  color: $black;
   text-align: right;
   tr {
     padding: 0;
@@ -154,6 +161,9 @@ header {
   margin-left: 16px;
   z-index: 99;
   position: relative;
+  @media (max-width: 480px){
+    margin-top: 10px;
+  }
 }
 .cart-count {
   @media (min-width: 992px) {
@@ -239,7 +249,7 @@ header {
   padding: 16px;
   width: 100%;
   button {
-    background: $primary-orange;
+    background: $black;
     display: block;
     width: 100%;
     &.disabled {

@@ -47,7 +47,8 @@ const Header = (props) => {
             // onClick={this.handleMobileSearch.bind(this)}
           >
             <img
-              src="https://res.cloudinary.com/sivadass/image/upload/v1494756966/icons/search-green.png"
+              src="https://res.cloudinary.com/ayorinde-timilehin/image/upload/v1624473949/search_ez31ma.png"
+              width="30"
               alt="search"
             />
           </a>
@@ -100,7 +101,8 @@ const Header = (props) => {
           <a className="cart-icon" href="#" onClick={handleCartButton}>
             <img
               className={props.cartBounce ? "tada" : " "}
-              src="https://res.cloudinary.com/sivadass/image/upload/v1493548928/icons/bag.png"
+              src="https://res.cloudinary.com/ayorinde-timilehin/image/upload/v1624473949/shopping-bag_l8cojq.png"
+              width="30"
               alt="Cart"
             />
             {cartQuantity ? (
