@@ -220,6 +220,9 @@ const Checkout = () => {
   const { step, shippingAddress } = useContext(CheckoutStateContext);
   const checkoutDispatch = useContext(CheckoutDispatchContext);
   const totalItems = items.length;
+  const cartSubTotal = items
+    .map((item) => item.price * item.quantity)
+    .reduce((prev, current) => prev + current, 0);
 
   const handleClickTimeline = (nextStep) => {
     setCheckoutStep(checkoutDispatch, nextStep);
@@ -294,16 +297,16 @@ const Checkout = () => {
 
           <ul className="total-breakup">
             <li>
-              <p>Subtotal</p>
-              <p>5000</p>
+                <p>Subtotal</p>
+                <p className="summary">{cartSubTotal}</p>
             </li>
             <li>
               <p>Tax</p>
-              <p>5000</p>
+              <p className="summary">5000</p>
             </li>
             <li>
               <p>Shipping</p>
-              <p>5000</p>
+              <p className="summary">5000</p>
             </li>
             <li>
               <h2>Total</h2>
