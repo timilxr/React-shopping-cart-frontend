@@ -36,9 +36,11 @@ header {
 }
 // Logo
 .brand .logo {
-  width: 123px;
+  width: 45px;
+  // width: 123px;
   @media (max-width: 480px) {
-    width: 102px;
+    width: 35px;
+    // width: 102px;
     margin: 2px 0;
   }
 }
