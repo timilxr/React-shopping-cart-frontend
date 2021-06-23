@@ -302,15 +302,15 @@ const Checkout = () => {
             </li>
             <li>
               <p>Tax</p>
-              <p className="summary">5000</p>
+              <p className="summary">3</p>
             </li>
             <li>
               <p>Shipping</p>
-              <p className="summary">5000</p>
+              <p className="summary">10</p>
             </li>
             <li>
               <h2>Total</h2>
-              <h2>5000</h2>
+              <h2>{cartSubTotal + 3 + 10}</h2>
             </li>
           </ul>
         </div>
