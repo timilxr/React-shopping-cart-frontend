@@ -42,6 +42,9 @@ const LoginStep = () => {
     signOut(authDispatch);
     history.push("/auth");
   };
+  const handleLogout = () => {
+    signOut(authDispatch);
+  };
   const handleGotoLogin = () => {
     history.push("/auth");
   };
@@ -60,6 +63,11 @@ const LoginStep = () => {
             <button onClick={() => handleLoginAsDiffUser()}>
               Login as Different User
             </button>
+            <br />
+            <br />
+            <button onClick={() => handleLogout()}>
+              Logout
+            </button>
           </>
         ) : (
           <>
@@ -72,7 +80,10 @@ const LoginStep = () => {
         <button className="outline" onClick={() => handleContinueShopping()}>
           <i className="rsc-icon-arrow_back" /> Continue Shopping
         </button>
-        <button disabled={!isLoggedIn} onClick={() => handleProceed()}>
+        <button
+        //  disabled={!isLoggedIn}
+          onClick={() => handleProceed()}
+        >
           Proceed
           <i className="rsc-icon-arrow_forward" />
         </button>

@@ -21,6 +21,9 @@ const Header = (props) => {
   const handleSearchInput = (event) => {
     return setSearchKeyword(commonDispatch, event.target.value);
   };
+  const handleSubmit = (event) => {
+    return event.preventDefault();
+  };
 
   const handleCartButton = (event) => {
     event.preventDefault();
@@ -72,7 +75,7 @@ const Header = (props) => {
             <button
               className="search-button"
               type="submit"
-              // onClick={this.handleSubmit.bind(this)}
+              onClick={handleSubmit}
             />
           </form>
         </div>

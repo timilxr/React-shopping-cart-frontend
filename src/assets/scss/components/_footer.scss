@@ -14,4 +14,8 @@ footer {
       color: $gray-medium;
     }
   }
+  @media (max-width: 480px){
+    width: 680px;
+    // width: 100%;
+  }
 }
