@@ -6,25 +6,42 @@
     margin: 0 auto;
     padding: 0 32px;
     display: flex;
+    @media (max-width: 480px) {
+      padding: 0 12px;
+    }
     .order-details {
       flex-grow: 1;
     }
     .order-summary {
       flex-basis: 300px;
     }
+    @media (max-width: 480px) {
+      flex-direction: column;
+    }
   }
 }
 
 .timeline {
-  text-align: center;
+      text-align: center;
   li {
     display: inline-block;
+    @media (max-width: 480px) {
+      width: 80px;
+    }
     width: 120px;
     cursor: pointer;
     position: relative;
     &:after {
       content: "";
       width: 120px;
+      @media (max-width: 481px){
+      right: 40px;
+      width: 94px;
+      }
+      @media (max-width: 481px){
+        right: 40px;
+        width: 94px;
+      }
       height: 2px;
       background: $gray-eighty;
       display: block;
@@ -34,7 +51,9 @@
     }
     &:first-child {
       &:after {
+        @media (min-width: 681px){
         width: 60px;
+      }
         left: 60px;
       }
     }
@@ -138,7 +157,11 @@
   padding: 24px;
   background: $white;
   margin: 24px 0;
+  width: 100%;
   border-radius: 6px;
+  @media (max-width: 480px) {
+    padding: 15px;
+  }
   h2 {
     padding: 16px;
     span {
@@ -150,6 +173,9 @@
     width: 300px;
     max-height: 256px;
     overflow-y: auto;
+    @media (max-width: 480px) {
+      width: 100%;
+    }
   }
   .total-breakup {
     border-top: 1px solid $gray-dark-bg;

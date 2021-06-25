@@ -287,10 +287,16 @@ header {
   }
   .product-info {
     margin-left: 16px;
-    flex-grow: 1;
+    // flex-grow: 1;
+    width: 50%;
+    // margin-right: 24px;
+    // border: 1px solid black;
     .product-name {
       color: $gray-light;
       font-size: 14px;
+      @media (max-width: 480px) {
+        width: 40vw;
+      }
     }
     .product-price {
       color: $gray-light;
@@ -301,6 +307,8 @@ header {
     }
   }
   .product-total {
+    // border: 1px solid black;
+    flex-grow: 1;
     margin-left: 16px;
     .quantity {
       color: $gray-light;
@@ -317,7 +325,7 @@ header {
     }
   }
   .product-remove {
-    margin-left: 24px;
+    margin-left: 10px;
     height: 24px;
     line-height: 24px;
     width: 24px;
