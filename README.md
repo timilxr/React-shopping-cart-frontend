@@ -8,7 +8,7 @@ Simple React Shopping Cart
 
 ## Live Demo
 
-[https://sivadass.github.io/react-shopping-cart/](https://sivadass.github.io/react-shopping-cart/)
+[https://urbanc3ntre.netlify.app/](https://urbanc3tre.netlify.app/)
 
 ## Setup
 
@@ -24,7 +24,7 @@ And run Webpack to watch for code changes and bundle js and scss files:
 npm start
 ```
 
-Project will be automatically open at http://localhost.com:8015
+Project will be automatically open at http://localhost.com:3000
 
 For production build:
 
