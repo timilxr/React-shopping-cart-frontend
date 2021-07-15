@@ -28,7 +28,7 @@ const Home = () => {
   if (isLoading) {
     return (
       <div className="products-wrapper">
-        <h1>Loading...</h1>
+        <center><h1>Loading...</h1></center>
       </div>
     );
   }

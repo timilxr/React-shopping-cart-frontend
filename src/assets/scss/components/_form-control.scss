@@ -6,6 +6,15 @@
     margin-top: 8px;
   }
 }
+.radio-button{
+  display: inline-flex;
+  margin: 5px 10px;
+  font-size: large;
+  text-transform: capitalize;
+  label{
+    margin-left: 5px;
+  }
+}
 
 .form-control {
   display: block;

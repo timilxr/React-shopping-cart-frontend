@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import classNames from "classnames";
 import {
@@ -8,6 +8,7 @@ import {
   setCheckoutStep,
   saveShippingAddress
 } from "contexts/checkout";
+import PaymentButton from "../components/flutterwavePaymentButton";
 import { CartStateContext } from "contexts/cart";
 import { AuthStateContext, AuthDispatchContext, signOut } from "contexts/auth";
 import { Formik, Form, Field } from "formik";
@@ -25,9 +26,14 @@ const AddressSchema = Yup.object().shape({
     .max(10, "Phone Number is too long"),
   addressLine: Yup.string().required("Door No. & Street is required!"),
   city: Yup.string().required("City is required!"),
+  email: Yup.string().required("Email is required!"),
   state: Yup.string().required("State is required!"),
   code: Yup.string().required("ZIP/Postal code is required!"),
   country: Yup.string().required("Country is required!")
+});
+
+const PaymentMethodSchema = Yup.object().shape({
+  paymentMethod: Yup.string()
 });
 
 const LoginStep = () => {
@@ -93,10 +99,14 @@ const LoginStep = () => {
 };
 
 const AddressStep = () => {
+  const history = useHistory();
   const checkoutDispatch = useContext(CheckoutDispatchContext);
 
-  const handleBackToLogin = () => {
-    setCheckoutStep(checkoutDispatch, CHECKOUT_STEPS.AUTH);
+  // const handleBackToLogin = () => {
+  //   setCheckoutStep(checkoutDispatch, CHECKOUT_STEPS.AUTH);
+  // };
+  const handleContinueShopping = () => {
+    history.push("/");
   };
   const handleSaveAddress = (addressData) => {
     saveShippingAddress(checkoutDispatch, addressData);
@@ -108,6 +118,7 @@ const AddressStep = () => {
         initialValues={{
           fullName: "John Doe",
           phoneNumber: "5552229876",
+          email: "user@gmail.com",
           addressLine: "L1, Palm Residency",
           city: "Kingston",
           state: "New York",
@@ -127,11 +138,19 @@ const AddressStep = () => {
       >
         {() => (
           <Form>
-            <div className="field-group">
+            {/* <div className="field-group"> */}
               <Field
                 name="fullName"
                 type="text"
                 placeholder="Full Name"
+                component={Input}
+              />
+            {/* </div> */}
+            <div className="field-group">
+              <Field
+                name="email"
+                type="email"
+                placeholder="Email Address"
                 component={Input}
               />
               <Field
@@ -179,9 +198,9 @@ const AddressStep = () => {
               <button
                 type="button"
                 className="outline"
-                onClick={() => handleBackToLogin()}
+                onClick={() => handleContinueShopping()}
               >
-                <i className="rsc-icon-arrow_back" /> Login in as Different User
+                <i className="rsc-icon-arrow_back" /> Continue shopping
               </button>
               <button type="submit">
                 Save Address
@@ -197,17 +216,83 @@ const AddressStep = () => {
 
 const PaymentStep = () => {
   const { shippingAddress } = useContext(CheckoutStateContext);
+  const { items } = useContext(CartStateContext);
+  const cartSubTotal = items
+    .map((item) => item.price * item.quantity)
+    .reduce((prev, current) => prev + current, 0);
+  const shippingPrice = 20.00;
+  const taxPrice = 0.00;
+  const totalPrice = (cartSubTotal + shippingPrice + taxPrice).toFixed(0);
+  // const orderDispatch = useContext(orderDispatchContext);
   const checkoutDispatch = useContext(CheckoutDispatchContext);
   const handleBackToAddress = () => {
     setCheckoutStep(checkoutDispatch, CHECKOUT_STEPS.SHIPPING);
   };
-  const handlePayment = () => {};
+  const [err, setErr] = useState(null);
+  const paymentMethods = ['card', 'mobilemoney', 'USSD', "banktransfer", "account", "barter", "payattitude", "qr"];
+  const [paymentMethod, setPaymentMethod] = useState(paymentMethods[0]);
+  const [order, setOrder] = useState({
+    cartSubTotalPrice: cartSubTotal,
+      taxPrice: taxPrice,
+      shippingPrice: shippingPrice,
+      totalPrice: totalPrice,
+      shippingAddress,
+      cartItems: [...items],
+  });
+
+  const handleInput = (e) => {
+    setPaymentMethod(e.target.value);
+  }
+  useEffect(()=>{
+    let newOrder = {
+      ...order,
+      paymentMethod: paymentMethod
+    };
+    setOrder(newOrder);
+    console.log(newOrder);
+  }, [paymentMethod])
+
+  const handlePayment = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className="detail-container">
-      <h2>Payment</h2>
-      {/* <div>
-        <pre>{JSON.stringify(shippingAddress, null, 0)}</pre>
-      </div> */}
+      {err && <div>{err}</div>}
+      <h2>Payment Method</h2>
+      <p>Please select the payment method you want to use</p> <br />
+      <Formik
+      initialValue={{paymentMethod: "card"}}
+      validationSchema={PaymentMethodSchema}
+      onSubmit={ (e) => handlePayment(e)}>
+        <center>
+        <Form>
+          <div className="form-group">
+            {paymentMethods.map(method => {
+              return <div key={method} className={classNames("radio-button", { checked: method === paymentMethods[0] })}>
+                <input 
+              name="paymentMethod" 
+              type="radio" 
+              onChange={(e) => handleInput(e)}
+              // checked={method === paymentMethods[0]}
+              id={`custom-${method}`}
+              value={method} />
+              <label htmlFor={`custom-${method}`}>
+              <i
+                className={
+                  method === paymentMethods[0]
+                    ? "icon-radio-button-checked"
+                    : "icon-radio-button-unchecked"
+                }
+                size={20}
+              />{" "}{method}
+              </label>
+              </div>
+            })}
+          </div>
+        </Form>
+        </center>
+      </Formik>
+      <br />
       <div className="actions">
         <button
           type="button"
@@ -216,10 +301,11 @@ const PaymentStep = () => {
         >
           <i className="rsc-icon-arrow_back" /> Back to Shipping Details
         </button>
-        <button disabled={!shippingAddress} onClick={() => handlePayment()}>
+        {/* <button disabled={!shippingAddress} onClick={() => handlePayment()}>
           Save Address
           <i className="rsc-icon-arrow_forward" />
-        </button>
+        </button> */}
+        <PaymentButton order={order} err={setErr} />
       </div>
     </div>
   );
@@ -244,7 +330,7 @@ const Checkout = () => {
       <div className="container">
         <div className="order-details">
           <ul className="timeline">
-            <li
+            {/* <li
               className={classNames({
                 done: isLoggedIn,
                 active: step === CHECKOUT_STEPS.AUTH
@@ -253,7 +339,7 @@ const Checkout = () => {
             >
               <h2>Sign In</h2>
               <i className="rsc-icon-check_circle" />
-            </li>
+            </li> */}
             <li
               className={classNames({
                 done: shippingAddress !== null,
@@ -275,7 +361,7 @@ const Checkout = () => {
               <i className="rsc-icon-check_circle" />
             </li>
           </ul>
-          {step === CHECKOUT_STEPS.AUTH && <LoginStep />}
+          {/* {step === CHECKOUT_STEPS.AUTH && <LoginStep />} */}
           {step === CHECKOUT_STEPS.SHIPPING && <AddressStep />}
           {step === CHECKOUT_STEPS.PAYMENT && <PaymentStep />}
         </div>
@@ -288,7 +374,7 @@ const Checkout = () => {
             {items.map((product) => {
               return (
                 <li className="cart-item" key={product.name}>
-                  <img className="product-image" src={product.image} />
+                  <img className="product-image" src={product.image} alt={product.name} />
                   <div className="product-info">
                     <p className="product-name">{product.name}</p>
                     <p className="product-price">{product.price}</p>
@@ -313,15 +399,15 @@ const Checkout = () => {
             </li>
             <li>
               <p>Tax</p>
-              <p className="summary">3</p>
+              <p className="summary">0</p>
             </li>
             <li>
               <p>Shipping</p>
-              <p className="summary">10</p>
+              <p className="summary">20</p>
             </li>
             <li>
               <h2>Total</h2>
-              <h2>{cartSubTotal + 3 + 10}</h2>
+              <h2 className="summary">{cartSubTotal + 3 + 10}</h2>
             </li>
           </ul>
         </div>

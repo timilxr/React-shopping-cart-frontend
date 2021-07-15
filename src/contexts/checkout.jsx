@@ -2,13 +2,13 @@ import React, { useReducer, createContext, useEffect } from "react";
 import useLocalStorage from "hooks/useLocalStorage";
 
 export const CHECKOUT_STEPS = {
-  AUTH: "auth",
+  // AUTH: "auth",
   SHIPPING: "shipping",
   PAYMENT: "payment"
 };
 
 const initialState = {
-  step: CHECKOUT_STEPS.AUTH,
+  step: CHECKOUT_STEPS.SHIPPING,
   shippingAddress: null
 };
 

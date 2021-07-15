@@ -34,13 +34,13 @@
     &:after {
       content: "";
       width: 120px;
-      @media (max-width: 481px){
-      right: 40px;
-      width: 94px;
-      }
+      // @media (max-width: 481px){
+      // right: 40px;
+      // width: 94px;
+      // }
       @media (max-width: 481px){
         right: 40px;
-        width: 94px;
+        width: 44px;
       }
       height: 2px;
       background: $gray-eighty;
@@ -59,7 +59,7 @@
     }
     &:last-child {
       &:after {
-        width: 60px;
+        width: 90px;
       }
     }
     h2 {
@@ -108,6 +108,10 @@
   h2 {
     margin: 32px 0;
     text-align: center;
+  }
+  p {
+    text-align: center;
+    font-size: large;
   }
   .auth-message {
     text-align: center;

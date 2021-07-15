@@ -5,6 +5,7 @@ import CommonProvider from "contexts/common";
 import ProductsProvider from "contexts/products";
 import CartProvider from "contexts/cart";
 import CheckoutProvider from "contexts/checkout";
+import OrderProvider from "contexts/order";
 import RouteWrapper from "layouts/RouteWrapper";
 import AuthLayout from "layouts/AuthLayout";
 import CommonLayout from "layouts/CommonLayout";
@@ -20,26 +21,28 @@ const App = () => {
         <ProductsProvider>
           <CartProvider>
             <CheckoutProvider>
-              <Router>
-                <Switch>
-                  <RouteWrapper
-                    path="/"
-                    exact
-                    component={HomePage}
-                    layout={CommonLayout}
-                  />
-                  <RouteWrapper
-                    path="/checkout"
-                    component={CheckoutPage}
-                    layout={CommonLayout}
-                  />
-                  <RouteWrapper
-                    path="/auth"
-                    component={AuthPage}
-                    layout={AuthLayout}
-                  />
-                </Switch>
-              </Router>
+              <OrderProvider>
+                <Router>
+                  <Switch>
+                    <RouteWrapper
+                      path="/"
+                      exact
+                      component={HomePage}
+                      layout={CommonLayout}
+                    />
+                    <RouteWrapper
+                      path="/checkout"
+                      component={CheckoutPage}
+                      layout={CommonLayout}
+                    />
+                    <RouteWrapper
+                      path="/auth"
+                      component={AuthPage}
+                      layout={AuthLayout}
+                    />
+                  </Switch>
+                </Router>
+              </OrderProvider>
             </CheckoutProvider>
           </CartProvider>
         </ProductsProvider>
